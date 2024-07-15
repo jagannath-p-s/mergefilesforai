@@ -1,33 +1,18 @@
 import os
 
-def combine_jsx_files(directory):
-    """
-    Combines all .jsx files in the specified directory into a single file.
-    
-    Args:
-        directory (str): The path to the directory containing the .jsx files.
-    """
-    # Create a list to store the contents of each .jsx file
-    jsx_contents = []
-    
-    # Loop through all files in the directory
-    for filename in os.listdir(directory):
-        # Check if the file has a .jsx extension
-        if filename.endswith(".jsx"):
-            # Open the file and read its contents
-            with open(os.path.join(directory, filename), "r") as file:
-                content = file.read()
-                jsx_contents.append(content)
-    
-    # Combine all the .jsx file contents into a single string
-    combined_content = "\n\n".join(jsx_contents)
-    
-    # Write the combined content to a new file
-    output_filename = os.path.join(directory, "combined.jsx")
-    with open(output_filename, "w") as file:
-        file.write(combined_content)
-    
-    print(f"Combined .jsx files saved to: {output_filename}")
+def combine_jsx_files(source_dir, output_file):
+    with open(output_file, 'w', encoding='utf-8') as outfile:
+        for root, _, files in os.walk(source_dir):
+            for file in files:
+                if file.endswith('.jsx'):
+                    file_path = os.path.join(root, file)
+                    with open(file_path, 'r', encoding='utf-8') as infile:
+                        outfile.write(f"// {file_path}\n")
+                        outfile.write(infile.read())
+                        outfile.write("\n\n")
 
-# Example usage
-combine_jsx_files("/path/to/directory/containing/jsx/files")
+if __name__ == "__main__ ":
+    source_directory = "/home/ubuntu/wscrm/src"  # Replace with the path to your main folder
+    output_file_path = "/home/ubuntu/wscrm/src/combined_code.txt"  # Replace with your desired output file name and path
+    combine_jsx_files(source_directory, output_file_path)
+    print(f"Combined code saved to {output_file_path}")
