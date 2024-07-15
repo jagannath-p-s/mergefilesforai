@@ -11,7 +11,7 @@ def combine_jsx_files(source_dir, output_file):
                         outfile.write(infile.read())
                         outfile.write("\n\n")
 
-if __name__ == "__main__ ":
+if __name__ == "__main__":
     source_directory = "/home/ubuntu/wscrm/src"  # Replace with the path to your main folder
     output_file_path = "/home/ubuntu/wscrm/src/combined_code.txt"  # Replace with your desired output file name and path
     combine_jsx_files(source_directory, output_file_path)
